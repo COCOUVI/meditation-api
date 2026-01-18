@@ -14,8 +14,11 @@ class RetreatPlanSeeder extends Seeder
      */
     public function run(): void
     {
-        // Supprimer les anciens plans pour éviter les doublons
-        DB::table('retreat_plans')->truncate();
+        // Supprimer d'abord les dépendances (tables enfants)
+        DB::table('food_comfort_forms')->delete();
+        
+        // Ensuite supprimer les anciens plans pour éviter les doublons
+        DB::table('retreat_plans')->delete();
 
         // Les 3 plans de retraite exacts depuis lib/screens/retreats_screen.dart
         $retreatPlans = [
