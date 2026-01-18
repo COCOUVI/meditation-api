@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route de redirection pour le middleware auth par défaut
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 // Routes admin - Authentification
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');

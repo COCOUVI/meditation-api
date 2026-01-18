@@ -15,6 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+        $middleware->redirectUsersTo(function (\Illuminate\Http\Request $request) {
+            // Si la requête est pour une route admin, rediriger vers admin.login
+            if ($request->is('admin*')) {
+                return route('admin.login');
+            }
+            return route('admin.login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
